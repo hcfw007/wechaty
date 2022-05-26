@@ -34,6 +34,7 @@ export type {
   LocationInterface       as Location,
   MessageInterface        as Message,
   MiniProgramInterface    as MiniProgram,
+  ChannelInterface        as Channel,
   MomentInterface         as Moment,
   MoneyInterface          as Money,
   PostInterface           as Post,

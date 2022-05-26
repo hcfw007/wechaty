@@ -9,6 +9,7 @@ import {
   LocationImpl,
   MessageImpl,
   MiniProgramImpl,
+  ChannelImpl,
   PostImpl,
   RoomImpl,
   RoomInvitationImpl,
@@ -23,6 +24,7 @@ import {
   LocationConstructor,
   MessageConstructor,
   MiniProgramConstructor,
+  ChannelConstructor,
   PostConstructor,
   RoomConstructor,
   RoomInvitationConstructor,
@@ -54,6 +56,7 @@ const wechatifyUserModuleMixin = <MixinBase extends typeof WechatySkeleton> (mix
     __wechatifiedLocation?       : LocationConstructor
     __wechatifiedMessage?        : MessageConstructor
     __wechatifiedMiniProgram?    : MiniProgramConstructor
+    __wechatifiedChannel?        : ChannelConstructor
     __wechatifiedPost?           : PostConstructor
     __wechatifiedRoom?           : RoomConstructor
     __wechatifiedRoomInvitation? : RoomInvitationConstructor
@@ -73,6 +76,7 @@ const wechatifyUserModuleMixin = <MixinBase extends typeof WechatySkeleton> (mix
     get RoomInvitation () : RoomInvitationConstructor { return guardWechatify(this.__wechatifiedRoomInvitation) }
     get Tag ()            : TagConstructor            { return guardWechatify(this.__wechatifiedTag)            }
     get UrlLink ()        : UrlLinkConstructor        { return guardWechatify(this.__wechatifiedUrlLink)        }
+    get Channel ()        : ChannelConstructor        { return guardWechatify(this.__wechatifiedChannel)        }
 
     override async init (): Promise<void> {
       log.verbose('WechatifyUserModuleMixin', 'init()')
@@ -102,6 +106,7 @@ const wechatifyUserModuleMixin = <MixinBase extends typeof WechatySkeleton> (mix
       this.__wechatifiedLocation       = wechatifyUserModule(LocationImpl)(this as any)
       this.__wechatifiedMessage        = wechatifyUserModule(MessageImpl)(this as any)
       this.__wechatifiedMiniProgram    = wechatifyUserModule(MiniProgramImpl)(this as any)
+      this.__wechatifiedChannel        = wechatifyUserModule(ChannelImpl)(this as any)
       this.__wechatifiedPost           = wechatifyUserModule(PostImpl)(this as any)
       this.__wechatifiedRoom           = wechatifyUserModule(RoomImpl)(this as any)
       this.__wechatifiedRoomInvitation = wechatifyUserModule(RoomInvitationImpl)(this as any)
@@ -137,6 +142,7 @@ type ProtectedPropertyWechatifyUserModuleMixin =
   | '__wechatifiedLocation'
   | '__wechatifiedMessage'
   | '__wechatifiedMiniProgram'
+  | '__wechatifiedChannel'
   | '__wechatifiedRoom'
   | '__wechatifiedRoomInvitation'
   | '__wechatifiedTag'

@@ -59,6 +59,9 @@ import type {
   MiniProgramInterface,
 }                       from './mini-program.js'
 import type {
+  ChannelInterface,
+}                       from './channel.js'
+import type {
   ImageInterface,
 }                       from './image.js'
 import {
@@ -460,7 +463,7 @@ class MessageMixin extends MixinBase implements SayableSayer {
    * This function is depending on the Puppet Implementation, see [puppet-compatible-table](https://github.com/wechaty/wechaty/wiki/Puppet#3-puppet-compatible-table)
    *
    * @see {@link https://github.com/wechaty/wechaty/blob/1523c5e02be46ebe2cc172a744b2fbe53351540e/examples/ding-dong-bot.ts|Examples/ding-dong-bot}
-   * @param {(string | ContactInterface | FileBox | UrlLinkInterface | MiniProgramInterface | LocationInterface)} textOrContactOrFile
+   * @param {(string | ContactInterface | FileBox | UrlLinkInterface | MiniProgramInterface | LocationInterface | ChannelInterface)} textOrContactOrFile
    * send text, Contact, or file to bot. </br>
    * You can use {@link https://www.npmjs.com/package/file-box|FileBox} to send file
    * @param {(ContactInterface|ContactInterface[])} [mention]
@@ -1044,6 +1047,22 @@ class MessageMixin extends MixinBase implements SayableSayer {
     const miniProgramPayload = await this.wechaty.puppet.messageMiniProgram(this.id)
 
     return new this.wechaty.MiniProgram(miniProgramPayload)
+  }
+
+  async toChannel (): Promise<ChannelInterface> {
+    log.verbose('Message', 'toChannel()')
+
+    if (!this.payload) {
+      throw new Error('no payload')
+    }
+
+    if (this.type() !== PUPPET.types.Message.Channel) {
+      throw new Error('message not a Channel')
+    }
+
+    const channelPayload = await this.wechaty.puppet.messageChannel(this.id)
+
+    return new this.wechaty.Channel(channelPayload)
   }
 
   async toLocation (): Promise<LocationInterface> {

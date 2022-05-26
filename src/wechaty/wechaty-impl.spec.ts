@@ -12,6 +12,7 @@ import type {
   LocationConstructor,
   MessageConstructor,
   MiniProgramConstructor,
+  ChannelConstructor,
   PostConstructor,
   RoomInvitationConstructor,
   RoomConstructor,
@@ -40,6 +41,7 @@ test('Wechaty interface', async t => {
     Location       : LocationConstructor
     Message        : MessageConstructor
     MiniProgram    : MiniProgramConstructor
+    Channel        : ChannelConstructor
     Post           : PostConstructor
     Room           : RoomConstructor
     RoomInvitation : RoomInvitationConstructor
@@ -62,6 +64,7 @@ test('Wechaty interface', async t => {
         = this.RoomInvitation
         = this.Tag
         = this.UrlLink
+        = this.Channel
         = {} as any
     }
 

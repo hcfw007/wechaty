@@ -58,6 +58,11 @@ import {
   MiniProgramConstructor,
 }                           from './mini-program.js'
 import {
+  ChannelImpl,
+  ChannelInterface,
+  ChannelConstructor,
+} from './channel.js'
+import {
   MomentImpl,
   MomentInterface,
   MomentConstructor,
@@ -109,6 +114,7 @@ export type {
   LocationInterface,
   MessageInterface,
   MiniProgramInterface,
+  ChannelInterface,
   MomentInterface,
   MoneyInterface,
   PostInterface,
@@ -128,6 +134,7 @@ export type {
   LocationConstructor,
   MessageConstructor,
   MiniProgramConstructor,
+  ChannelConstructor,
   MomentConstructor,
   MoneyConstructor,
   PostConstructor,
@@ -149,6 +156,7 @@ export {
   LocationImpl,
   MessageImpl,
   MiniProgramImpl,
+  ChannelImpl,
   MomentImpl,
   MoneyImpl,
   PostImpl,

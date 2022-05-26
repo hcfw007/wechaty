@@ -35,6 +35,9 @@ const payloadToSayableWechaty: (w: WechatyInterface) => (p: PUPPET.payloads.Saya
     case PUPPET.types.Sayable.MiniProgram:
       return new wechaty.MiniProgram(sayable.payload)
 
+    case PUPPET.types.Sayable.Channel:
+      return new wechaty.Channel(sayable.payload)
+
     case PUPPET.types.Sayable.Url:
       return new wechaty.UrlLink(sayable.payload)
 
