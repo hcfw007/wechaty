@@ -17,7 +17,7 @@ test('puppet.plugins are auto-installed by wechaty during init()', async t => {
 
   class TestPuppet extends PuppetMock {
 
-    public plugins: WechatyPlugin[] = [pluginFn]
+    public plugins: WechatyPlugin[] = [ pluginFn ]
 
   }
 
