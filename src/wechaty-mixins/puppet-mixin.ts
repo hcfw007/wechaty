@@ -25,6 +25,7 @@ import type {
 
 import type { GErrorMixin } from './gerror-mixin.js'
 import type { IoMixin }     from './io-mixin.js'
+import type { WechatyPlugin } from '../plugin.js'
 
 const PUPPET_MEMORY_NAME = 'puppet'
 
@@ -182,6 +183,28 @@ const puppetMixin = <MixinBase extends WechatifyUserModuleMixin & GErrorMixin & 
       log.verbose('WechatyPuppetMixin', 'init() emitting "puppet" event ... done')
 
       this.__puppet = puppetInstance
+
+      /**
+       * Auto-install plugins bundled with the puppet.
+       *
+       * If a puppet implementation exposes a `plugins: WechatyPlugin[]` field,
+       * iterate it and `this.use()` each one. This lets puppet authors ship a
+       * single npm package that contains both the standard puppet implementation
+       * and one or more `WechatyPlugin`s — e.g. clients for non-standard gRPC
+       * endpoints offered by the same remote service. The bot author only has
+       * to configure the puppet; the bundled capabilities show up automatically.
+       *
+       * The detection is duck-typed (no change required to `wechaty-puppet`):
+       * puppets that don't declare `plugins` are unaffected.
+       */
+      const bundledPlugins = (puppetInstance as { plugins?: unknown }).plugins
+      if (Array.isArray(bundledPlugins) && bundledPlugins.length > 0) {
+        log.verbose('WechatyPuppetMixin', 'init() puppet exposes %d bundled plugin(s), installing ...', bundledPlugins.length)
+        // `use()` comes from pluginMixin, which precedes puppetMixin in the FP.pipe
+        // (see wechaty-base.ts). pluginMixin isn't part of puppetMixin's type bound,
+        // so we cast through `any` to reach the runtime-available method.
+        ;(this as any).use(...bundledPlugins as WechatyPlugin[])
+      }
     }
 
     __setupPuppetEvents (puppet: PUPPET.impls.PuppetInterface): void {

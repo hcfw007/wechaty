@@ -1136,7 +1136,13 @@ class RoomMixin extends MixinBase implements SayableSayer {
 }
 
 class RoomImpl extends validationMixin(RoomMixin)<RoomImplInterface>() {}
-interface RoomImplInterface extends RoomImpl {}
+
+/**
+ * Plugin extension surface for Room. See ContactImplPluginExtensions for usage.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface RoomImplPluginExtensions {}
+interface RoomImplInterface extends RoomImpl, RoomImplPluginExtensions {}
 
 type RoomProtectedProperty =
   | 'ready'
@@ -1152,6 +1158,7 @@ export type {
   RoomConstructor,
   RoomProtectedProperty,
   RoomInterface,
+  RoomImplPluginExtensions,
 }
 export {
   RoomImpl,

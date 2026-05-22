@@ -113,3 +113,16 @@ export type {
   WechatyInterface,
   WechatyConstructor,
 }                         from '../wechaty/mod.js'
+
+/**
+ * Plugin extension surfaces — augment via `declare module 'wechaty/impls'`
+ * to add new methods that surface natively on the public types.
+ */
+export type {
+  ContactImplPluginExtensions,
+  MessageImplPluginExtensions,
+  RoomImplPluginExtensions,
+}                               from '../user-modules/mod.js'
+export type {
+  WechatyImplPluginExtensions,
+}                               from '../wechaty/mod.js'

@@ -22,7 +22,21 @@ import {
  *
  */
 class WechatyImplBase extends validationMixin(WechatyBase)<WechatyImplInterface>() {}
-interface WechatyImplInterface extends WechatyImplBase {}
+
+/**
+ * Plugin extension surface for Wechaty.
+ * Third-party plugins may augment this interface to add methods directly on the
+ * public `Wechaty` type without forking.
+ *
+ *   declare module 'wechaty/impls' {
+ *     interface WechatyImplPluginExtensions {
+ *       translate(text: string, targetLang: string): Promise<string>
+ *     }
+ *   }
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface WechatyImplPluginExtensions {}
+interface WechatyImplInterface extends WechatyImplBase, WechatyImplPluginExtensions {}
 
 class WechatyImpl extends validationMixin(WechatyImplBase)<WechatyInterface>() {}
 
@@ -61,5 +75,6 @@ export  {
   type WechatyInterface,
   type WechatyConstructor,
   type AllProtectedProperty,
+  type WechatyImplPluginExtensions,
   WechatyImpl,
 }

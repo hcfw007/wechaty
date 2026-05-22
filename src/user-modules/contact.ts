@@ -783,7 +783,21 @@ class ContactMixin extends MixinBase implements SayableSayer {
 }
 
 class ContactImplBase extends validationMixin(ContactMixin)<ContactImplInterface>() {}
-interface ContactImplInterface extends ContactImplBase {}
+
+/**
+ * Plugin extension surface for Contact.
+ * Third-party plugins may augment this interface to add methods that surface
+ * on the public `Contact` type without forking wechaty.
+ *
+ *   declare module 'wechaty/impls' {
+ *     interface ContactImplPluginExtensions {
+ *       translate(text: string, targetLang: string): Promise<string>
+ *     }
+ *   }
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface ContactImplPluginExtensions {}
+interface ContactImplInterface extends ContactImplBase, ContactImplPluginExtensions {}
 
 type ContactProtectedProperty =
   | 'ready'
@@ -800,6 +814,7 @@ export type {
   ContactConstructor,
   ContactProtectedProperty,
   ContactInterface,
+  ContactImplPluginExtensions,
 }
 export {
   ContactImpl,

@@ -1090,7 +1090,13 @@ class MessageMixin extends MixinBase implements SayableSayer {
 }
 
 class MessageImplBase extends validationMixin(MessageMixin)<MessageImplInterface>() {}
-interface MessageImplInterface extends MessageImplBase {}
+
+/**
+ * Plugin extension surface for Message. See ContactImplPluginExtensions for usage.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface MessageImplPluginExtensions {}
+interface MessageImplInterface extends MessageImplBase, MessageImplPluginExtensions {}
 
 type MessageProtectedProperty =
   | 'ready'
@@ -1107,6 +1113,7 @@ export type {
   MessageInterface,
   MessageProtectedProperty,
   MessageConstructor,
+  MessageImplPluginExtensions,
 }
 export {
   MessageImpl,
