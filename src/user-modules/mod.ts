@@ -21,6 +21,7 @@ import {
   ContactImpl,
   ContactInterface,
   ContactConstructor,
+  ContactImplPluginExtensions,
 }                           from './contact.js'
 import {
   ContactSelfImpl,
@@ -51,6 +52,7 @@ import {
   MessageImpl,
   MessageInterface,
   MessageConstructor,
+  MessageImplPluginExtensions,
 }                           from './message.js'
 import {
   MiniProgramImpl,
@@ -76,6 +78,7 @@ import {
   RoomImpl,
   RoomInterface,
   RoomConstructor,
+  RoomImplPluginExtensions,
 }                           from './room.js'
 import {
   RoomInvitationImpl,
@@ -117,6 +120,11 @@ export type {
   TagInterface,
   DelayInterface,
   UrlLinkInterface,
+
+  // Plugin extension surfaces. Augment via `declare module 'wechaty/impls'`.
+  ContactImplPluginExtensions,
+  MessageImplPluginExtensions,
+  RoomImplPluginExtensions,
 }
 
 export type {
