@@ -200,7 +200,10 @@ const puppetMixin = <MixinBase extends WechatifyUserModuleMixin & GErrorMixin & 
       const bundledPlugins = (puppetInstance as { plugins?: unknown }).plugins
       if (Array.isArray(bundledPlugins) && bundledPlugins.length > 0) {
         log.verbose('WechatyPuppetMixin', 'init() puppet exposes %d bundled plugin(s), installing ...', bundledPlugins.length)
-        this.use(...bundledPlugins as WechatyPlugin[])
+        // `use()` comes from pluginMixin, which precedes puppetMixin in the FP.pipe
+        // (see wechaty-base.ts). pluginMixin isn't part of puppetMixin's type bound,
+        // so we cast through `any` to reach the runtime-available method.
+        ;(this as any).use(...bundledPlugins as WechatyPlugin[])
       }
     }
 
